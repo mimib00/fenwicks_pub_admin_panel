@@ -37,6 +37,10 @@ dependencies:
   syncfusion_flutter_core: ^20.1.52
   syncfusion_flutter_datagrid: ^20.1.52
 
+  firebase_core: ^1.6.0
+  firebase_auth: ^3.3.17
+  cloud_firestore_web: ^2.6.14
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

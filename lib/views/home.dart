@@ -1,5 +1,6 @@
 import 'package:admin_panel/controllers/navigation_controller.dart';
 import 'package:admin_panel/views/sections/navigation_menu.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +22,12 @@ class HomeScreen extends StatelessWidget {
             },
           ),
         ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async => await FirebaseAuth.instance.signOut(),
+        child: const Icon(Icons.logout),
+        tooltip: "Logout",
       ),
     );
   }
