@@ -42,6 +42,8 @@ class _MyAppState extends State<MyApp> {
         if (user != null) {
           if (auth.checkUserIsAdmin(user)) {
             Get.to(() => const HomeScreen());
+          } else {
+            auth.logout();
           }
         } else {
           Get.to(() => LoginScreen());
