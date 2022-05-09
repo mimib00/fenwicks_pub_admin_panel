@@ -24,7 +24,7 @@ class NavigationButton extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: Card(
         color: selected ? Colors.white : kBackgroundColor,
-        elevation: selected ? 1 : 0,
+        elevation: selected ? 3 : 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
