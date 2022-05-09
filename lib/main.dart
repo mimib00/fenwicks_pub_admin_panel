@@ -1,3 +1,4 @@
+import 'package:admin_panel/controllers/auth_controller.dart';
 import 'package:admin_panel/controllers/bindings.dart';
 import 'package:admin_panel/utils/constants.dart';
 import 'package:admin_panel/views/home.dart';
@@ -37,8 +38,11 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     FirebaseAuth.instance.authStateChanges().listen(
       (user) {
+        final auth = Get.put(Auth());
         if (user != null) {
-          Get.to(() => const HomeScreen());
+          if (auth.checkUserIsAdmin(user)) {
+            Get.to(() => const HomeScreen());
+          }
         } else {
           Get.to(() => LoginScreen());
         }
