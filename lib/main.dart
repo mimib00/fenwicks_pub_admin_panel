@@ -4,7 +4,6 @@ import 'package:admin_panel/utils/constants.dart';
 import 'package:admin_panel/views/home.dart';
 import 'package:admin_panel/views/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth_web/firebase_auth_web.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

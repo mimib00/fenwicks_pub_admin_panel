@@ -51,6 +51,7 @@ class LoginScreen extends StatelessWidget {
                           hintText: "Password",
                           label: Text("Password"),
                         ),
+                        obscureText: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) return "Must provide a password";
                           return null;
