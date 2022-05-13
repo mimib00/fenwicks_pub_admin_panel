@@ -49,8 +49,15 @@ class _NavigationMenuState extends State<NavigationMenu> {
                   controller.updateIndex(index);
                 },
               ),
-              // Spacer(),
-              // ElevatedButton(onPressed: () {}, child: Text("Logout"))
+              NavigationButton(
+                index: 3,
+                currentIndex: currentIndex,
+                title: "Events",
+                icon: Icons.shopping_cart,
+                onTap: (index) {
+                  controller.updateIndex(index);
+                },
+              ),
             ],
           ),
         );

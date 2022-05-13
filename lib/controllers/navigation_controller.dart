@@ -1,6 +1,8 @@
-import 'package:admin_panel/views/sections/products.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+
+import '../views/sections/events.dart';
+import '../views/sections/products.dart';
 
 class NavigationController extends GetxController {
   RxInt currentIndex = 0.obs;
@@ -8,6 +10,7 @@ class NavigationController extends GetxController {
     ProductScreen(),
     Container(),
     Container(),
+    EventScreen(),
   ];
 
   void updateIndex(int index) {
