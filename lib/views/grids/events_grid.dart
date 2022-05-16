@@ -1,16 +1,19 @@
 import 'package:admin_panel/models/event.dart';
 import 'package:admin_panel/views/widgets/date_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import '../../controllers/event_controller.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
-import '../widgets/stock_card.dart';
 
 class EventsDataGrid extends StatefulWidget {
   final String title;
@@ -293,6 +296,7 @@ class _EventsGridState extends State<EventsDataGrid> with TickerProviderStateMix
 }
 
 class EventDataSource extends DataGridSource {
+  ScreenshotController screenshotController = ScreenshotController();
   EventDataSource({List<Event> events = const []}) {
     _events = events
         .map<DataGridRow>(
@@ -303,8 +307,8 @@ class EventDataSource extends DataGridSource {
               DataGridCell<Timestamp>(columnName: "Date", value: e.date),
               DataGridCell(columnName: "Points", value: e.points),
               DataGridCell(columnName: "Address", value: e.address),
-              DataGridCell(columnName: "Type", value: e.type),
-              const DataGridCell(columnName: "Actions", value: null),
+              DataGridCell(columnName: "Type", value: e.type.name),
+              DataGridCell(columnName: "Actions", value: e.secret),
             ],
           ),
         )
@@ -315,55 +319,79 @@ class EventDataSource extends DataGridSource {
   @override
   List<DataGridRow> get rows => _events;
 
+  Widget imageWidget = QrImage(
+    data: "text",
+    version: QrVersions.auto,
+    size: 300,
+  );
+
+  void _genrateQR(String text) {
+    Get.dialog(
+      Align(
+        alignment: Alignment.center,
+        child: Material(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          child: Container(
+            width: 300,
+            // height: Get.height * .5,
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                imageWidget,
+                CustomButton(
+                  icon: Icons.download,
+                  title: "Download",
+                  onTap: () async {
+                    final image = await screenshotController.captureFromWidget(
+                      Container(
+                        color: Colors.white,
+                        child: QrImage(
+                          data: text,
+                          version: QrVersions.auto,
+                        ),
+                      ),
+                    );
+
+                    await FileSaver.instance.saveFile("QR_${DateTime.now().millisecondsSinceEpoch}", image, ".jpg", mimeType: MimeType.JPEG);
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
       cells: row.getCells().map<Widget>(
         (dataGridCell) {
           switch (dataGridCell.columnName) {
-            case "Name":
-              return Container(
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  "${dataGridCell.value}",
-                  style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              );
-            case "Description":
-              return Container(
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  "${dataGridCell.value}",
-                  style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              );
             case "Date":
               var time = DateFormat.yMd().format(dataGridCell.value.toDate());
               return Container(
                 alignment: Alignment.centerLeft,
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  "${time}",
+                  time,
                   style: const TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               );
-              ;
-            case "Price":
-              return Container(
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  "\$${dataGridCell.value}",
-                  style: const TextStyle(color: Colors.black, fontSize: 16),
-                ),
-              );
+
             case "Actions":
               return Row(
                 children: [
                   IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
                   IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+                  IconButton(
+                      onPressed: () {
+                        _genrateQR(dataGridCell.value);
+                      },
+                      icon: const Icon(Icons.qr_code)),
                 ],
               );
             default:

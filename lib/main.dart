@@ -62,6 +62,7 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: kBackgroundColor,
       ),
       home: Container(),
+      // initialRoute: "/",
     );
   }
 }

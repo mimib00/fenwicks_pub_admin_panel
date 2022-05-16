@@ -29,7 +29,6 @@ class EventController extends GetxController {
     for (var doc in docs) {
       events.add(Event.fromJson(doc.data(), uid: doc.id));
     }
-    print(events);
     return events;
   }
 }
