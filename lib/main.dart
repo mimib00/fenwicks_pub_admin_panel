@@ -1,9 +1,5 @@
-import 'package:admin_panel/controllers/auth_controller.dart';
 import 'package:admin_panel/controllers/bindings.dart';
 import 'package:admin_panel/utils/constants.dart';
-import 'package:admin_panel/views/home.dart';
-import 'package:admin_panel/views/login.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,32 +20,8 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    FirebaseAuth.instance.authStateChanges().listen(
-      (user) {
-        final auth = Get.put(Auth());
-        if (user != null) {
-          if (auth.checkUserIsAdmin(user)) {
-            Get.to(() => const HomeScreen());
-          } else {
-            auth.logout();
-          }
-        } else {
-          Get.to(() => LoginScreen());
-        }
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +34,6 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: kBackgroundColor,
       ),
       home: Container(),
-      // initialRoute: "/",
     );
   }
 }

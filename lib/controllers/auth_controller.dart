@@ -1,3 +1,5 @@
+import 'package:admin_panel/views/home.dart';
+import 'package:admin_panel/views/login.dart';
 import 'package:admin_panel/views/widgets/error_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -32,5 +34,24 @@ class Auth extends GetxController {
   /// Logout currently logged user.
   void logout() async {
     await FirebaseAuth.instance.signOut();
+  }
+
+  @override
+  void onInit() {
+    FirebaseAuth.instance.authStateChanges().listen(
+      (user) {
+        final auth = Get.put(Auth());
+        if (user != null) {
+          if (auth.checkUserIsAdmin(user)) {
+            Get.to(() => const HomeScreen());
+          } else {
+            auth.logout();
+          }
+        } else {
+          Get.to(() => LoginScreen());
+        }
+      },
+    );
+    super.onInit();
   }
 }

@@ -319,12 +319,6 @@ class EventDataSource extends DataGridSource {
   @override
   List<DataGridRow> get rows => _events;
 
-  Widget imageWidget = QrImage(
-    data: "text",
-    version: QrVersions.auto,
-    size: 300,
-  );
-
   void _genrateQR(String text) {
     Get.dialog(
       Align(
@@ -339,7 +333,11 @@ class EventDataSource extends DataGridSource {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                imageWidget,
+                QrImage(
+                  data: text,
+                  version: QrVersions.auto,
+                  size: 300,
+                ),
                 CustomButton(
                   icon: Icons.download,
                   title: "Download",
