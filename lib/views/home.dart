@@ -59,6 +59,12 @@ class HomeScreen extends StatelessWidget {
                             controller.updateIndex(index);
                           },
                         ),
+                        const SizedBox(height: 50),
+                        ListTile(
+                          onTap: () async => await FirebaseAuth.instance.signOut(),
+                          leading: const Icon(Icons.logout),
+                          title: const Text("Logout"),
+                        )
                       ],
                     );
                   },
