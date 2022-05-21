@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 class ProductController extends GetxController {
   final CollectionReference<Map<String, dynamic>> _ref = FirebaseFirestore.instance.collection("products");
 
+  /// addes a Product to firestore.
   Future<bool> addProduct(Product product) async {
     try {
       await _ref.add(product.toMap());
@@ -31,5 +32,16 @@ class ProductController extends GetxController {
     }
 
     return products;
+  }
+
+  /// Takes an [id] of the event in firesotre and deletes the document.
+  void deleteProduct(String id) async {
+    Get.back();
+    try {
+      await _ref.doc(id).delete();
+    } on FirebaseException catch (e) {
+      Get.showSnackbar(errorCard(e.message!));
+    }
+    update();
   }
 }

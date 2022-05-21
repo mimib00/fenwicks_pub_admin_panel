@@ -317,7 +317,7 @@ class EventDataSource extends DataGridSource {
               DataGridCell(columnName: "Points", value: e.points),
               DataGridCell(columnName: "Address", value: e.address),
               DataGridCell(columnName: "Type", value: e.type.name),
-              DataGridCell(columnName: "Actions", value: e.secret),
+              DataGridCell<Event>(columnName: "Actions", value: e),
             ],
           ),
         )
@@ -390,13 +390,28 @@ class EventDataSource extends DataGridSource {
               );
 
             case "Actions":
+              final event = dataGridCell.value as Event;
               return Row(
                 children: [
                   IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
                   IconButton(
                       onPressed: () {
-                        _genrateQR(dataGridCell.value);
+                        Get.defaultDialog(
+                          title: "Are you sure?",
+                          content: const SizedBox.shrink(),
+                          confirm: TextButton(
+                              onPressed: () {
+                                final EventController controller = Get.find();
+                                controller.deleteEvent(event.id!);
+                              },
+                              child: const Text("Yes")),
+                          cancel: TextButton(onPressed: () => Get.back(), child: const Text("No")),
+                        );
+                      },
+                      icon: const Icon(Icons.delete)),
+                  IconButton(
+                      onPressed: () {
+                        _genrateQR(event.secret);
                       },
                       icon: const Icon(Icons.qr_code)),
                 ],

@@ -7,6 +7,7 @@ import '../views/widgets/error_card.dart';
 class EventController extends GetxController {
   final CollectionReference<Map<String, dynamic>> _ref = FirebaseFirestore.instance.collection("events");
 
+  /// addes an event to firestore.
   Future<bool> addEvent(Event event) async {
     try {
       await _ref.add(event.toMap());
@@ -30,5 +31,16 @@ class EventController extends GetxController {
       events.add(Event.fromJson(doc.data(), uid: doc.id));
     }
     return events;
+  }
+
+  /// Takes an [id] of the event in firesotre and deletes the document.
+  void deleteEvent(String id) async {
+    Get.back();
+    try {
+      await _ref.doc(id).delete();
+    } on FirebaseException catch (e) {
+      Get.showSnackbar(errorCard(e.message!));
+    }
+    update();
   }
 }

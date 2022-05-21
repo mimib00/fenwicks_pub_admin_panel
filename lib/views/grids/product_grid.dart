@@ -294,7 +294,7 @@ class ProductDataSource extends DataGridSource {
               DataGridCell(columnName: "SKU", value: e.sku),
               DataGridCell(columnName: "Quantity", value: e.quantity),
               DataGridCell(columnName: "Status", value: e.quantity > 0),
-              const DataGridCell(columnName: "Actions", value: null),
+              DataGridCell(columnName: "Actions", value: e),
             ],
           ),
         )
@@ -333,10 +333,25 @@ class ProductDataSource extends DataGridSource {
                 ),
               );
             case "Actions":
+              final product = dataGridCell.value as Product;
               return Row(
                 children: [
                   IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+                  IconButton(
+                      onPressed: () {
+                        Get.defaultDialog(
+                          title: "Are you sure?",
+                          content: const SizedBox.shrink(),
+                          confirm: TextButton(
+                              onPressed: () {
+                                final ProductController controller = Get.find();
+                                controller.deleteProduct(product.id!);
+                              },
+                              child: const Text("Yes")),
+                          cancel: TextButton(onPressed: () => Get.back(), child: const Text("No")),
+                        );
+                      },
+                      icon: const Icon(Icons.delete)),
                 ],
               );
             default:
