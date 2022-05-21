@@ -95,6 +95,7 @@ class _EventsGridState extends State<EventsDataGrid> with TickerProviderStateMix
                     columns: [
                       GridColumn(
                         columnName: "Name",
+                        minimumWidth: 90,
                         label: Container(
                           padding: const EdgeInsets.all(16.0),
                           alignment: Alignment.centerLeft,
@@ -106,6 +107,7 @@ class _EventsGridState extends State<EventsDataGrid> with TickerProviderStateMix
                       ),
                       GridColumn(
                         columnName: "Description",
+                        minimumWidth: 90,
                         label: Container(
                           padding: const EdgeInsets.all(16.0),
                           alignment: Alignment.centerLeft,
@@ -117,6 +119,7 @@ class _EventsGridState extends State<EventsDataGrid> with TickerProviderStateMix
                       ),
                       GridColumn(
                         columnName: "Date",
+                        minimumWidth: 90,
                         label: Container(
                           padding: const EdgeInsets.all(16.0),
                           alignment: Alignment.centerLeft,
@@ -128,6 +131,7 @@ class _EventsGridState extends State<EventsDataGrid> with TickerProviderStateMix
                       ),
                       GridColumn(
                         columnName: "Points",
+                        minimumWidth: 90,
                         label: Container(
                           padding: const EdgeInsets.all(16.0),
                           alignment: Alignment.centerLeft,
@@ -139,6 +143,7 @@ class _EventsGridState extends State<EventsDataGrid> with TickerProviderStateMix
                       ),
                       GridColumn(
                         columnName: "Address",
+                        minimumWidth: 90,
                         label: Container(
                           padding: const EdgeInsets.all(16.0),
                           alignment: Alignment.centerLeft,
@@ -150,6 +155,7 @@ class _EventsGridState extends State<EventsDataGrid> with TickerProviderStateMix
                       ),
                       GridColumn(
                         columnName: "Type",
+                        minimumWidth: 90,
                         label: Container(
                           padding: const EdgeInsets.all(16.0),
                           alignment: Alignment.centerLeft,
@@ -161,6 +167,7 @@ class _EventsGridState extends State<EventsDataGrid> with TickerProviderStateMix
                       ),
                       GridColumn(
                         columnName: "Actions",
+                        minimumWidth: 120,
                         label: Container(
                           padding: const EdgeInsets.all(16.0),
                           alignment: Alignment.centerLeft,
@@ -176,117 +183,119 @@ class _EventsGridState extends State<EventsDataGrid> with TickerProviderStateMix
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    IconButton(onPressed: () => controller.animateTo(0), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
-                    const Text(
-                      "Add a new event",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 50),
-                CustomTextField(hintText: "Name", label: "Name", controller: name),
-                CustomTextField(hintText: "Description", label: "Description", controller: description),
-                Row(
-                  children: [
-                    Expanded(
-                      child: DatePicker(
-                        onSelected: (date) {
-                          if (date != null) time = date;
-                        },
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(onPressed: () => controller.animateTo(0), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+                      const Text(
+                        "Add a new event",
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    Expanded(
-                      child: CustomTextField(
-                        hintText: "Points",
-                        label: "Points",
-                        controller: points,
-                        keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+                  CustomTextField(hintText: "Name", label: "Name", controller: name),
+                  CustomTextField(hintText: "Description", label: "Description", controller: description),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: DatePicker(
+                          onSelected: (date) {
+                            if (date != null) time = date;
+                          },
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextField(
-                        hintText: "Secret Word (to genrate QR codes)",
-                        label: "Secret Word",
-                        controller: secret,
+                      Expanded(
+                        child: CustomTextField(
+                          hintText: "Points",
+                          label: "Points",
+                          controller: points,
+                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: CustomTextField(
-                        hintText: "Address",
-                        label: "Address",
-                        controller: address,
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
+                          hintText: "Secret Word (to genrate QR codes)",
+                          label: "Secret Word",
+                          controller: secret,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: DropdownButton<String>(
-                        value: dropValue,
-                        items: [
-                          DropdownMenuItem(
-                            value: EventTypes.concert.name,
-                            child: Text(
-                              EventTypes.concert.name,
+                      Expanded(
+                        child: CustomTextField(
+                          hintText: "Address",
+                          label: "Address",
+                          controller: address,
+                        ),
+                      ),
+                      Expanded(
+                        child: DropdownButton<String>(
+                          value: dropValue,
+                          items: [
+                            DropdownMenuItem(
+                              value: EventTypes.concert.name,
+                              child: Text(
+                                EventTypes.concert.name,
+                              ),
                             ),
-                          ),
-                          DropdownMenuItem(
-                            value: EventTypes.dancing.name,
-                            child: Text(
-                              EventTypes.dancing.name,
+                            DropdownMenuItem(
+                              value: EventTypes.dancing.name,
+                              child: Text(
+                                EventTypes.dancing.name,
+                              ),
                             ),
-                          ),
-                          DropdownMenuItem(
-                            value: EventTypes.drinking.name,
-                            child: Text(
-                              EventTypes.drinking.name,
+                            DropdownMenuItem(
+                              value: EventTypes.drinking.name,
+                              child: Text(
+                                EventTypes.drinking.name,
+                              ),
                             ),
-                          ),
-                        ],
-                        onChanged: (value) {
-                          if (value == null) return;
-                          setState(() {
-                            dropValue = value;
-                          });
-                        },
+                          ],
+                          onChanged: (value) {
+                            if (value == null) return;
+                            setState(() {
+                              dropValue = value;
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                ElevatedButton(
-                  child: const Text("Submit"),
-                  onPressed: () async {
-                    final EventController ctrl = Get.put(EventController());
-                    if (name.text.isNotEmpty && description.text.isNotEmpty && points.text.isNotEmpty && address.text.isNotEmpty && secret.text.isNotEmpty && time != null) {
-                      Map<String, dynamic> data = {
-                        "name": name.text,
-                        "description": description.text,
-                        "points": int.parse(points.text),
-                        "address": address.text,
-                        "date": Timestamp.fromDate(time!),
-                        "going": [],
-                        "secret": secret.text,
-                        "photos": <String>[],
-                        "type": dropValue,
-                      };
+                    ],
+                  ),
+                  ElevatedButton(
+                    child: const Text("Submit"),
+                    onPressed: () async {
+                      final EventController ctrl = Get.put(EventController());
+                      if (name.text.isNotEmpty && description.text.isNotEmpty && points.text.isNotEmpty && address.text.isNotEmpty && secret.text.isNotEmpty && time != null) {
+                        Map<String, dynamic> data = {
+                          "name": name.text,
+                          "description": description.text,
+                          "points": int.parse(points.text),
+                          "address": address.text,
+                          "date": Timestamp.fromDate(time!),
+                          "going": [],
+                          "secret": secret.text,
+                          "photos": <String>[],
+                          "type": dropValue,
+                        };
 
-                      final event = Event.fromJson(data);
-                      final status = await ctrl.addEvent(event);
-                      if (status) controller.animateTo(0);
-                    } else {
-                      return;
-                    }
-                  },
-                )
-              ],
+                        final event = Event.fromJson(data);
+                        final status = await ctrl.addEvent(event);
+                        if (status) controller.animateTo(0);
+                      } else {
+                        return;
+                      }
+                    },
+                  )
+                ],
+              ),
             ),
           )
         ],
@@ -328,7 +337,6 @@ class EventDataSource extends DataGridSource {
           borderRadius: BorderRadius.circular(15),
           child: Container(
             width: 300,
-            // height: Get.height * .5,
             padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -348,6 +356,7 @@ class EventDataSource extends DataGridSource {
                         child: QrImage(
                           data: text,
                           version: QrVersions.auto,
+                          size: 300,
                         ),
                       ),
                     );

@@ -48,7 +48,7 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       elevation: 20,
-      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      margin: const EdgeInsets.all(20),
       child: TabBarView(
         controller: controller,
         physics: const NeverScrollableScrollPhysics(),
@@ -77,197 +77,203 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
                   ],
                 ),
                 const SizedBox(height: 30),
-                ConstrainedBox(
-                  constraints: BoxConstraints.loose(Size(Get.width, Get.height * .5)),
-                  child: SfDataGrid(
-                    source: ProductDataSource(
-                      products: widget.products,
-                    ),
-                    columnWidthMode: ColumnWidthMode.fill,
-                    highlightRowOnHover: false,
-                    columns: [
-                      GridColumn(
-                        columnName: "Product",
-                        label: Container(
-                          padding: const EdgeInsets.all(16.0),
-                          alignment: Alignment.centerLeft,
-                          child: const Text(
-                            "Product",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      GridColumn(
-                        columnName: "Category",
-                        label: Container(
-                          padding: const EdgeInsets.all(16.0),
-                          alignment: Alignment.centerLeft,
-                          child: const Text(
-                            "category",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      GridColumn(
-                        columnName: "Price",
-                        label: Container(
-                          padding: const EdgeInsets.all(16.0),
-                          alignment: Alignment.centerLeft,
-                          child: const Text(
-                            "Price",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      GridColumn(
-                        columnName: "SKU",
-                        label: Container(
-                          padding: const EdgeInsets.all(16.0),
-                          alignment: Alignment.centerLeft,
-                          child: const Text(
-                            "SKU",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      GridColumn(
-                        columnName: "Quantity",
-                        label: Container(
-                          padding: const EdgeInsets.all(16.0),
-                          alignment: Alignment.centerLeft,
-                          child: const Text(
-                            "Quantity",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      GridColumn(
-                        columnName: "Status",
-                        label: Container(
-                          padding: const EdgeInsets.all(16.0),
-                          alignment: Alignment.centerLeft,
-                          child: const Text(
-                            "Status",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      GridColumn(
-                        columnName: "Actions",
-                        label: Container(
-                          padding: const EdgeInsets.all(16.0),
-                          alignment: Alignment.centerLeft,
-                          child: const Text(
-                            "Actions",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ],
+                SfDataGrid(
+                  source: ProductDataSource(
+                    products: widget.products,
                   ),
+                  columnWidthMode: ColumnWidthMode.fill,
+                  highlightRowOnHover: false,
+                  columns: [
+                    GridColumn(
+                      columnName: "Product",
+                      minimumWidth: 90,
+                      label: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "Product",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    GridColumn(
+                      columnName: "Category",
+                      minimumWidth: 90,
+                      label: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "category",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    GridColumn(
+                      columnName: "Price",
+                      minimumWidth: 90,
+                      label: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "Price",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    GridColumn(
+                      columnName: "SKU",
+                      minimumWidth: 90,
+                      label: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "SKU",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    GridColumn(
+                      columnName: "Quantity",
+                      minimumWidth: 90,
+                      label: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "Quantity",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    GridColumn(
+                      columnName: "Status",
+                      minimumWidth: 90,
+                      label: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "Status",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    GridColumn(
+                      columnName: "Actions",
+                      minimumWidth: 90,
+                      label: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "Actions",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    IconButton(onPressed: () => controller.animateTo(0), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
-                    const Text(
-                      "Add a new product",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 50),
-                CustomTextField(hintText: "Name", label: "Name", controller: name),
-                CustomTextField(hintText: "Description", label: "Description", controller: description),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextField(
-                        hintText: "Available Quantity",
-                        label: "Available Quantity",
-                        controller: qty,
-                        keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(onPressed: () => controller.animateTo(0), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+                      const Text(
+                        "Add a new product",
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    Expanded(
-                      child: CustomTextField(
-                        hintText: "Price",
-                        label: "Price",
-                        controller: price,
-                        keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+                  CustomTextField(hintText: "Name", label: "Name", controller: name),
+                  CustomTextField(hintText: "Description", label: "Description", controller: description),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
+                          hintText: "Available Quantity",
+                          label: "Available Quantity",
+                          controller: qty,
+                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: CustomTextField(
-                        hintText: "Servings",
-                        label: "Servings",
-                        controller: servings,
-                        keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                      Expanded(
+                        child: CustomTextField(
+                          hintText: "Price",
+                          label: "Price",
+                          controller: price,
+                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextField(
-                        hintText: "Category",
-                        label: "Category",
-                        controller: category,
-                        // keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                      Expanded(
+                        child: CustomTextField(
+                          hintText: "Servings",
+                          label: "Servings",
+                          controller: servings,
+                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: CustomTextField(
-                        hintText: "SKU",
-                        label: "Stock Keeping Unit (SKU)",
-                        controller: sku,
-                        keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
+                          hintText: "Category",
+                          label: "Category",
+                          controller: category,
+                          // keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: CustomTextField(
-                        hintText: "Level",
-                        label: "Level",
-                        controller: level,
-                        keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                      Expanded(
+                        child: CustomTextField(
+                          hintText: "SKU",
+                          label: "Stock Keeping Unit (SKU)",
+                          controller: sku,
+                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                ElevatedButton(
-                  child: const Text("Submit"),
-                  onPressed: () async {
-                    final ProductController ctrl = Get.put(ProductController());
-                    if (name.text.isNotEmpty && qty.text.isNotEmpty && price.text.isNotEmpty && category.text.isNotEmpty && sku.text.isNotEmpty) {
-                      Map<String, dynamic> data = {
-                        "name": name.text,
-                        "description": description.text,
-                        "rating": 5,
-                        "level": int.parse(level.text),
-                        "servings": int.parse(servings.text),
-                        "price": double.parse(price.text),
-                        "category": category.text,
-                        "sku": int.parse(sku.text),
-                        "quantity": int.parse(qty.text),
-                      };
+                      Expanded(
+                        child: CustomTextField(
+                          hintText: "Level",
+                          label: "Level",
+                          controller: level,
+                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                        ),
+                      ),
+                    ],
+                  ),
+                  ElevatedButton(
+                    child: const Text("Submit"),
+                    onPressed: () async {
+                      final ProductController ctrl = Get.put(ProductController());
+                      if (name.text.isNotEmpty && qty.text.isNotEmpty && price.text.isNotEmpty && category.text.isNotEmpty && sku.text.isNotEmpty) {
+                        Map<String, dynamic> data = {
+                          "name": name.text,
+                          "description": description.text,
+                          "rating": 5,
+                          "level": int.parse(level.text),
+                          "servings": int.parse(servings.text),
+                          "price": double.parse(price.text),
+                          "category": category.text,
+                          "sku": int.parse(sku.text),
+                          "quantity": int.parse(qty.text),
+                        };
 
-                      final product = Product.fromJson(data);
-                      final status = await ctrl.addProduct(product);
-                      if (status) controller.animateTo(0);
-                    } else {
-                      return;
-                    }
-                  },
-                )
-              ],
+                        final product = Product.fromJson(data);
+                        final status = await ctrl.addProduct(product);
+                        if (status) controller.animateTo(0);
+                      } else {
+                        return;
+                      }
+                    },
+                  )
+                ],
+              ),
             ),
           )
         ],
