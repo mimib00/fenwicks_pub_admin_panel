@@ -5,14 +5,16 @@ import '../../utils/constants.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label, hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final TextInputFormatter? keyboardFormat;
+  final Function(String)? onChange;
   const CustomTextField({
     Key? key,
     required this.hintText,
     required this.label,
-    required this.controller,
+    this.controller,
     this.keyboardFormat,
+    this.onChange,
   }) : super(key: key);
 
   @override
@@ -28,6 +30,7 @@ class CustomTextField extends StatelessWidget {
           ),
           TextField(
             controller: controller,
+            onChanged: onChange,
             inputFormatters: keyboardFormat != null
                 ? [
                     keyboardFormat!

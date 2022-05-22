@@ -336,7 +336,115 @@ class ProductDataSource extends DataGridSource {
               final product = dataGridCell.value as Product;
               return Row(
                 children: [
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+                  IconButton(
+                      onPressed: () {
+                        Map<String, dynamic> data = {};
+                        Get.defaultDialog(
+                          title: "Edit ${product.name} Info",
+                          content: SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 50),
+                                  CustomTextField(
+                                    hintText: product.name,
+                                    label: "Name",
+                                    // controller: name,
+                                    onChange: (value) {
+                                      data.addIf(value.isNotEmpty, "name", value);
+                                    },
+                                  ),
+                                  CustomTextField(
+                                    hintText: product.description,
+                                    label: "Description",
+                                    onChange: (value) {
+                                      data.addIf(value.isNotEmpty, "description", value);
+                                    },
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: CustomTextField(
+                                          hintText: product.quantity.toString(),
+                                          label: "Available Quantity",
+                                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                                          onChange: (value) {
+                                            data.addIf(value.isNotEmpty, "quantity", int.parse(value));
+                                          },
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: CustomTextField(
+                                          hintText: product.price.toString(),
+                                          label: "Price",
+                                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                                          onChange: (value) {
+                                            data.addIf(value.isNotEmpty, "price", double.parse(value));
+                                          },
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: CustomTextField(
+                                          hintText: product.servings.toString(),
+                                          label: "Servings",
+                                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                                          onChange: (value) {
+                                            data.addIf(value.isNotEmpty, "servings", int.parse(value));
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: CustomTextField(
+                                          hintText: product.category,
+                                          label: "Category",
+                                          onChange: (value) {
+                                            data.addIf(value.isNotEmpty, "category", value);
+                                          },
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: CustomTextField(
+                                          hintText: product.sku.toString(),
+                                          label: "Stock Keeping Unit (SKU)",
+                                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                                          onChange: (value) {
+                                            data.addIf(value.isNotEmpty, "sku", int.parse(value));
+                                          },
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: CustomTextField(
+                                          hintText: product.level.toString(),
+                                          label: "Level",
+                                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                                          onChange: (value) {
+                                            data.addIf(value.isNotEmpty, "level", int.parse(value));
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  ElevatedButton(
+                                    child: const Text("Update"),
+                                    onPressed: () async {
+                                      final ProductController ctrl = Get.put(ProductController());
+
+                                      ctrl.updateProduct(data, product.id!);
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.edit)),
                   IconButton(
                       onPressed: () {
                         Get.defaultDialog(

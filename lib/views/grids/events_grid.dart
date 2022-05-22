@@ -393,7 +393,11 @@ class EventDataSource extends DataGridSource {
               final event = dataGridCell.value as Event;
               return Row(
                 children: [
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+                  IconButton(
+                      onPressed: () {
+                        Get.defaultDialog(title: "Edit ${event.name} Info", content: MyWidget(event: event));
+                      },
+                      icon: const Icon(Icons.edit)),
                   IconButton(
                       onPressed: () {
                         Get.defaultDialog(
@@ -428,6 +432,139 @@ class EventDataSource extends DataGridSource {
           }
         },
       ).toList(),
+    );
+  }
+}
+
+class MyWidget extends StatefulWidget {
+  final Event event;
+  const MyWidget({
+    Key? key,
+    required this.event,
+  }) : super(key: key);
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  DateTime? time;
+
+  String dropValue = EventTypes.concert.name;
+  Map<String, dynamic> data = {};
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 50),
+            CustomTextField(
+              hintText: widget.event.name,
+              label: "Name",
+              // controller: name,
+              onChange: (value) {
+                data.addIf(value.isNotEmpty, "name", value);
+              },
+            ),
+            CustomTextField(
+              hintText: widget.event.description,
+              label: "Description",
+              onChange: (value) {
+                data.addIf(value.isNotEmpty, "description", value);
+              },
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: DatePicker(
+                    onSelected: (date) {
+                      if (date != null) time = date;
+
+                      data.addIf(date != null, "date", date);
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: CustomTextField(
+                    hintText: widget.event.points.toString(),
+                    label: "Points",
+                    keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                    onChange: (value) {
+                      data.addIf(value.isNotEmpty, "points", int.parse(value));
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomTextField(
+                    hintText: widget.event.secret,
+                    label: "Secret Word (to genrate QR codes)",
+                    onChange: (value) {
+                      data.addIf(value.isNotEmpty, "secret", value);
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: CustomTextField(
+                    hintText: widget.event.address,
+                    label: "Address",
+                    onChange: (value) {
+                      data.addIf(value.isNotEmpty, "address", value);
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: DropdownButton<String>(
+                    value: dropValue,
+                    items: [
+                      DropdownMenuItem(
+                        value: EventTypes.concert.name,
+                        child: Text(
+                          EventTypes.concert.name,
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: EventTypes.dancing.name,
+                        child: Text(
+                          EventTypes.dancing.name,
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: EventTypes.drinking.name,
+                        child: Text(
+                          EventTypes.drinking.name,
+                        ),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      if (value == null) return;
+
+                      setState(() {
+                        dropValue = value;
+                      });
+                      data.addIf(value.isNotEmpty, "type", value);
+                    },
+                  ),
+                ),
+              ],
+            ),
+            ElevatedButton(
+              child: const Text("Update"),
+              onPressed: () async {
+                final EventController ctrl = Get.put(EventController());
+
+                ctrl.updateEvent(data, widget.event.id!);
+              },
+            )
+          ],
+        ),
+      ),
     );
   }
 }

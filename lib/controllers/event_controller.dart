@@ -43,4 +43,14 @@ class EventController extends GetxController {
     }
     update();
   }
+
+  void updateEvent(Map<String, dynamic> event, String id) async {
+    try {
+      await _ref.doc(id).update(event);
+    } on FirebaseException catch (e) {
+      Get.back();
+      Get.showSnackbar(errorCard(e.message!));
+    }
+    Get.back();
+  }
 }

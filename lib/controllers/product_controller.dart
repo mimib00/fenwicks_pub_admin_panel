@@ -44,4 +44,14 @@ class ProductController extends GetxController {
     }
     update();
   }
+
+  void updateProduct(Map<String, dynamic> product, String id) async {
+    try {
+      await _ref.doc(id).update(product);
+    } on FirebaseException catch (e) {
+      Get.back();
+      Get.showSnackbar(errorCard(e.message!));
+    }
+    Get.back();
+  }
 }
