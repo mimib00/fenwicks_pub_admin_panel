@@ -34,8 +34,8 @@ class _NavigationMenuState extends State<NavigationMenu> {
               NavigationButton(
                 index: 1,
                 currentIndex: currentIndex,
-                title: "Users",
-                icon: Icons.person_rounded,
+                title: "Rewards",
+                icon: Icons.card_giftcard,
                 onTap: (index) {
                   controller.updateIndex(index);
                 },

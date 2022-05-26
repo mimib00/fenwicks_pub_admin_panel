@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:admin_panel/views/sections/orders.dart';
+import 'package:admin_panel/views/sections/rewards.dart';
 import 'package:get/get.dart';
 
 import '../views/sections/events.dart';
@@ -8,8 +9,8 @@ class NavigationController extends GetxController {
   RxInt currentIndex = 0.obs;
   final List screens = [
     ProductScreen(),
-    Container(),
-    Container(),
+    RewardsScreen(),
+    OrderScreen(),
     EventScreen(),
   ];
 
