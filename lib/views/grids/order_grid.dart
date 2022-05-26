@@ -1,4 +1,7 @@
+import 'package:admin_panel/controllers/order_controller.dart';
 import 'package:admin_panel/models/order.dart';
+import 'package:admin_panel/views/widgets/custom_button.dart';
+import 'package:admin_panel/views/widgets/order_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,14 +30,29 @@ class OrderDataGrid extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GetBuilder<OrderController>(
+                  builder: (controller) {
+                    return CustomButton(
+                      icon: Icons.check_rounded,
+                      title: controller.showPending.value ? "Show All" : "Show pending only",
+                      onTap: () {
+                        controller.changeFilter();
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
             const SizedBox(height: 30),
             ConstrainedBox(
               constraints: BoxConstraints.loose(Size(Get.width, Get.height * .5)),
               child: SfDataGrid(
                 rowHeight: 70,
                 onCellTap: (DataGridCellTapDetails details) {
-                  // TODO: show order details.
-                  // print(orders[details.rowColumnIndex.rowIndex].toMap());
+                  Get.dialog(OrderDetails(order: orders[details.rowColumnIndex.rowIndex - 1]));
                 },
                 source: OrderDataSource(
                   order: orders,
@@ -61,7 +79,7 @@ class OrderDataGrid extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       alignment: Alignment.centerLeft,
                       child: const Text(
-                        "Description",
+                        "Address",
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -193,6 +211,15 @@ class OrderDataSource extends DataGridSource {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   "\$${dataGridCell.value}",
+                  style: const TextStyle(color: Colors.black, fontSize: 16),
+                ),
+              );
+            case "Products":
+              return Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "${dataGridCell.value.length}",
                   style: const TextStyle(color: Colors.black, fontSize: 16),
                 ),
               );

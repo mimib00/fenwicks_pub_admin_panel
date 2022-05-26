@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:admin_panel/controllers/order_controller.dart';
 import 'package:admin_panel/models/order.dart';
 import 'package:admin_panel/models/user.dart';
@@ -10,9 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OrderScreen extends StatelessWidget {
-  OrderScreen({Key? key}) : super(key: key);
-
-  final OrderController controller = Get.put(OrderController());
+  const OrderScreen({Key? key}) : super(key: key);
 
   Future<List<Order>> getOwner(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) async {
     List<Order> orders = [];
@@ -33,24 +29,19 @@ class OrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topCenter,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          // TODO: add filter button.
-          Text("Hello"),
-          StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+    return GetBuilder<OrderController>(
+      init: OrderController(),
+      builder: (controller) {
+        return Container(
+          alignment: Alignment.topCenter,
+          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: controller.getOrders(),
             builder: (context, snapshot) {
               if (snapshot.data == null || snapshot.data!.docs.isEmpty) return Container();
-
-              // List<Order> orders = snapshot.data!.docs.map((e) => Order.fromJson(e.data(), e.id)).toList();
               return FutureBuilder<List<Order>>(
                 future: getOwner(snapshot.data!.docs),
                 builder: (context, snapshot) {
                   if (snapshot.data == null || snapshot.data!.isEmpty) return Container();
-
                   return OrderDataGrid(
                     title: "All Events",
                     orders: snapshot.data!,
@@ -59,8 +50,8 @@ class OrderScreen extends StatelessWidget {
               );
             },
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
