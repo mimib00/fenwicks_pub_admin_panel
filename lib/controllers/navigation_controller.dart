@@ -6,7 +6,7 @@ import '../views/sections/events.dart';
 import '../views/sections/products.dart';
 
 class NavigationController extends GetxController {
-  RxInt currentIndex = 2.obs;
+  RxInt currentIndex = 0.obs;
   final List screens = [
     ProductScreen(),
     RewardsScreen(),

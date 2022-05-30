@@ -6,6 +6,7 @@ class Product {
   final int level;
   final int servings;
   final double price;
+  final int points;
   final String category;
   final int sku;
   final int quantity;
@@ -18,6 +19,7 @@ class Product {
     this.level,
     this.servings,
     this.price,
+    this.points,
     this.category,
     this.sku,
     this.quantity, {
@@ -33,6 +35,7 @@ class Product {
       data["level"],
       data["servings"],
       data["price"],
+      int.parse(data["points"].toString()),
       data["category"],
       data["sku"],
       data["quantity"],

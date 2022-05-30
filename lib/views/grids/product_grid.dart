@@ -28,6 +28,7 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
   final TextEditingController description = TextEditingController();
   final TextEditingController qty = TextEditingController();
   final TextEditingController price = TextEditingController();
+  final TextEditingController points = TextEditingController();
   final TextEditingController category = TextEditingController();
   final TextEditingController sku = TextEditingController();
   final TextEditingController level = TextEditingController();
@@ -116,6 +117,18 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
                         alignment: Alignment.centerLeft,
                         child: const Text(
                           "Price",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    GridColumn(
+                      columnName: "Points",
+                      minimumWidth: 90,
+                      label: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "Points",
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -211,6 +224,14 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
                       ),
                       Expanded(
                         child: CustomTextField(
+                          hintText: "Points",
+                          label: "Points",
+                          controller: points,
+                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                        ),
+                      ),
+                      Expanded(
+                        child: CustomTextField(
                           hintText: "Servings",
                           label: "Servings",
                           controller: servings,
@@ -259,6 +280,7 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
                           "level": int.parse(level.text),
                           "servings": int.parse(servings.text),
                           "price": double.parse(price.text),
+                          "points": int.parse(price.text),
                           "category": category.text,
                           "sku": int.parse(sku.text),
                           "quantity": int.parse(qty.text),
@@ -291,6 +313,7 @@ class ProductDataSource extends DataGridSource {
               DataGridCell(columnName: "Product", value: e.name),
               DataGridCell(columnName: "Category", value: e.category),
               DataGridCell(columnName: "Price", value: e.price),
+              DataGridCell(columnName: "Points", value: e.points),
               DataGridCell(columnName: "SKU", value: e.sku),
               DataGridCell(columnName: "Quantity", value: e.quantity),
               DataGridCell(columnName: "Status", value: e.quantity > 0),
