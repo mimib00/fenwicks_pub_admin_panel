@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:admin_panel/controllers/order_controller.dart';
 import 'package:admin_panel/models/order.dart';
 import 'package:admin_panel/models/user.dart';
@@ -37,14 +39,24 @@ class OrderScreen extends StatelessWidget {
           child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: controller.getOrders(),
             builder: (context, snapshot) {
-              if (snapshot.data == null || snapshot.data!.docs.isEmpty) return Container();
+              if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
+                return FutureBuilder<List<Order>>(
+                  future: getOwner(snapshot.data!.docs),
+                  builder: (context, snap) {
+                    return OrderDataGrid(
+                      title: "All Events",
+                      orders: snap.data!,
+                    );
+                  },
+                );
+              }
               return FutureBuilder<List<Order>>(
                 future: getOwner(snapshot.data!.docs),
-                builder: (context, snapshot) {
-                  if (snapshot.data == null || snapshot.data!.isEmpty) return Container();
+                builder: (context, snap) {
+                  if (snap.data == null || snap.data!.isEmpty) return Container();
                   return OrderDataGrid(
                     title: "All Events",
-                    orders: snapshot.data!,
+                    orders: snap.data!,
                   );
                 },
               );
