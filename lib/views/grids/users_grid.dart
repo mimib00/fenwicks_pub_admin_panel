@@ -1,7 +1,7 @@
 import 'package:admin_panel/controllers/users_controller.dart';
 import 'package:admin_panel/models/user.dart';
 import 'package:admin_panel/views/widgets/custom_text_field.dart';
-import 'package:admin_panel/views/widgets/order_details.dart';
+import 'package:admin_panel/views/widgets/points_add.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -50,7 +50,7 @@ class _UsersDataGridState extends State<UsersDataGrid> {
               child: SfDataGrid(
                 rowHeight: 70,
                 onCellTap: (DataGridCellTapDetails details) {
-                  // Get.dialog(OrderDetails(order: orders[details.rowColumnIndex.rowIndex - 1]));
+                  Get.dialog(PointsDialog(user: widget.users[details.rowColumnIndex.rowIndex - 1]));
                 },
                 source: UsersDataSource(
                   user: widget.users,

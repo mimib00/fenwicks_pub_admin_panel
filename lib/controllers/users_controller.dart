@@ -28,4 +28,18 @@ class UsersController extends GetxController {
     }
     return users;
   }
+
+  void sendGift(Users user, int points) async {
+    try {
+      // add the points
+      await _ref.doc(user.id).update({
+        "points": user.points + points
+      });
+      // TODO:send notification
+    } on FirebaseException catch (e) {
+      Get.back();
+      Get.showSnackbar(errorCard(e.message!));
+    }
+    Get.back();
+  }
 }
