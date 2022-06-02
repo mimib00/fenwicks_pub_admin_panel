@@ -28,6 +28,7 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
   final TextEditingController description = TextEditingController();
   final TextEditingController qty = TextEditingController();
   final TextEditingController price = TextEditingController();
+  final TextEditingController bounus = TextEditingController();
   final TextEditingController points = TextEditingController();
   final TextEditingController category = TextEditingController();
   final TextEditingController sku = TextEditingController();
@@ -134,17 +135,29 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
                       ),
                     ),
                     GridColumn(
-                      columnName: "SKU",
+                      columnName: "Bounus",
                       minimumWidth: 90,
                       label: Container(
                         padding: const EdgeInsets.all(16.0),
                         alignment: Alignment.centerLeft,
                         child: const Text(
-                          "SKU",
+                          "Bounus Points",
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
+                    // GridColumn(
+                    //   columnName: "SKU",
+                    //   minimumWidth: 90,
+                    //   label: Container(
+                    //     padding: const EdgeInsets.all(16.0),
+                    //     alignment: Alignment.centerLeft,
+                    //     child: const Text(
+                    //       "SKU",
+                    //       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    //     ),
+                    //   ),
+                    // ),
                     GridColumn(
                       columnName: "Quantity",
                       minimumWidth: 90,
@@ -232,6 +245,14 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
                       ),
                       Expanded(
                         child: CustomTextField(
+                          hintText: "Bounus Points(rewarded when user buy this product)",
+                          label: "Bounus Points",
+                          controller: points,
+                          keyboardFormat: FilteringTextInputFormatter.digitsOnly,
+                        ),
+                      ),
+                      Expanded(
+                        child: CustomTextField(
                           hintText: "Servings",
                           label: "Servings",
                           controller: servings,
@@ -281,6 +302,7 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
                           "servings": int.parse(servings.text),
                           "price": double.parse(price.text),
                           "points": int.parse(price.text),
+                          "bounus": int.parse(bounus.text),
                           "category": category.text,
                           "sku": int.parse(sku.text),
                           "quantity": int.parse(qty.text),
@@ -314,7 +336,7 @@ class ProductDataSource extends DataGridSource {
               DataGridCell(columnName: "Category", value: e.category),
               DataGridCell(columnName: "Price", value: e.price),
               DataGridCell(columnName: "Points", value: e.points),
-              DataGridCell(columnName: "SKU", value: e.sku),
+              DataGridCell(columnName: "Bounus", value: e.bounus),
               DataGridCell(columnName: "Quantity", value: e.quantity),
               DataGridCell(columnName: "Status", value: e.quantity > 0),
               DataGridCell(columnName: "Actions", value: e),
