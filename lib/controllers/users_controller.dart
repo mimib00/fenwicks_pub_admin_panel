@@ -42,7 +42,7 @@ class UsersController extends GetxController {
       await http.post(
         Uri.parse("https://europe-west1-fenwicks-pub.cloudfunctions.net/sendNotification"),
         body: {
-          "amount": points,
+          "amount": points.toString(),
           "token": user.token
         },
       );
