@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:admin_panel/controllers/users_controller.dart';
 import 'package:admin_panel/models/user.dart';
 import 'package:admin_panel/views/widgets/custom_button.dart';

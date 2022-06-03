@@ -7,12 +7,14 @@ class Users {
   final String phone;
   final List<Address>? address;
   final int points;
+  final String token;
 
   Users(
     this.name,
     this.email,
     this.phone,
-    this.points, {
+    this.points,
+    this.token, {
     this.id,
     this.address,
   });
@@ -31,6 +33,7 @@ class Users {
       data["email"],
       data["phone"],
       data["points"] ?? 0,
+      data["token"] ?? '',
       address: addresses,
       id: uid,
     );
@@ -42,5 +45,6 @@ class Users {
         "phone": phone,
         "address": address,
         "points": points,
+        "token": token,
       };
 }

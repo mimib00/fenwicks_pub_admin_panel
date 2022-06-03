@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:admin_panel/models/user.dart';
 import 'package:admin_panel/views/widgets/error_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class UsersController extends GetxController {
   final CollectionReference<Map<String, dynamic>> _ref = FirebaseFirestore.instance.collection("users");
@@ -35,7 +38,19 @@ class UsersController extends GetxController {
       await _ref.doc(user.id).update({
         "points": user.points + points
       });
-      // TODO:send notification
+
+      await http.post(
+        Uri.parse("https://europe-west1-fenwicks-pub.cloudfunctions.net/sendNotification"),
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        },
+        body: jsonEncode(
+          {
+            "amount": points,
+            "token": user.token
+          },
+        ),
+      );
     } on FirebaseException catch (e) {
       Get.back();
       Get.showSnackbar(errorCard(e.message!));
