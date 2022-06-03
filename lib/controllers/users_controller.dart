@@ -41,15 +41,10 @@ class UsersController extends GetxController {
 
       await http.post(
         Uri.parse("https://europe-west1-fenwicks-pub.cloudfunctions.net/sendNotification"),
-        headers: {
-          "Access-Control-Allow-Origin": "*"
+        body: {
+          "amount": points,
+          "token": user.token
         },
-        body: jsonEncode(
-          {
-            "amount": points,
-            "token": user.token
-          },
-        ),
       );
     } on FirebaseException catch (e) {
       Get.back();
