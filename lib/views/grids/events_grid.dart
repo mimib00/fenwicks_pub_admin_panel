@@ -191,7 +191,8 @@ class _EventsGridState extends State<EventsDataGrid> with TickerProviderStateMix
                 children: [
                   Row(
                     children: [
-                      IconButton(onPressed: () => controller.animateTo(0), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+                      IconButton(
+                          onPressed: () => controller.animateTo(0), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
                       const Text(
                         "Add a new event",
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -273,7 +274,12 @@ class _EventsGridState extends State<EventsDataGrid> with TickerProviderStateMix
                     child: const Text("Submit"),
                     onPressed: () async {
                       final EventController ctrl = Get.put(EventController());
-                      if (name.text.isNotEmpty && description.text.isNotEmpty && points.text.isNotEmpty && address.text.isNotEmpty && secret.text.isNotEmpty && time != null) {
+                      if (name.text.isNotEmpty &&
+                          description.text.isNotEmpty &&
+                          points.text.isNotEmpty &&
+                          address.text.isNotEmpty &&
+                          secret.text.isNotEmpty &&
+                          time != null) {
                         Map<String, dynamic> data = {
                           "name": name.text,
                           "description": description.text,
@@ -361,7 +367,8 @@ class EventDataSource extends DataGridSource {
                       ),
                     );
 
-                    await FileSaver.instance.saveFile("QR_${DateTime.now().millisecondsSinceEpoch}", image, ".jpg", mimeType: MimeType.JPEG);
+                    await FileSaver.instance.saveFile("QR_${DateTime.now().millisecondsSinceEpoch}", image, ".jpg",
+                        mimeType: MimeType.JPEG);
                   },
                 )
               ],

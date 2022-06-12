@@ -58,6 +58,15 @@ class _NavigationMenuState extends State<NavigationMenu> {
                   controller.updateIndex(index);
                 },
               ),
+              NavigationButton(
+                index: 4,
+                currentIndex: currentIndex,
+                title: "Notifications",
+                icon: Icons.notification_add,
+                onTap: (index) {
+                  controller.updateIndex(index);
+                },
+              ),
             ],
           ),
         );
