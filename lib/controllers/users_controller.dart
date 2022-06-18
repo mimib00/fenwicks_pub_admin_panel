@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:admin_panel/models/user.dart';
 import 'package:admin_panel/views/widgets/error_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -35,16 +33,11 @@ class UsersController extends GetxController {
   void sendGift(Users user, int points) async {
     try {
       // add the points
-      await _ref.doc(user.id).update({
-        "points": user.points + points
-      });
+      await _ref.doc(user.id).update({"points": user.points + points});
 
       await http.post(
         Uri.parse("https://europe-west1-fenwicks-pub.cloudfunctions.net/sendNotification"),
-        body: {
-          "amount": points.toString(),
-          "token": user.token
-        },
+        body: {"amount": points.toString(), "token": user.token},
       );
     } on FirebaseException catch (e) {
       Get.back();

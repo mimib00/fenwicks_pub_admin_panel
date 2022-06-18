@@ -54,7 +54,16 @@ class HomeScreen extends StatelessWidget {
                           index: 3,
                           currentIndex: currentIndex,
                           title: "Events",
-                          icon: Icons.shopping_cart,
+                          icon: Icons.event_rounded,
+                          onTap: (index) {
+                            controller.updateIndex(index);
+                          },
+                        ),
+                        NavigationButton(
+                          index: 4,
+                          currentIndex: currentIndex,
+                          title: "Notifications",
+                          icon: Icons.notification_add,
                           onTap: (index) {
                             controller.updateIndex(index);
                           },
