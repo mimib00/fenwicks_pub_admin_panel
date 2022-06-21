@@ -9,9 +9,11 @@ import 'package:intl/intl.dart';
 
 class OrderDetails extends StatelessWidget {
   final Order order;
+  final bool delete;
   const OrderDetails({
     Key? key,
     required this.order,
+    this.delete = false,
   }) : super(key: key);
 
   Future<Map<String, dynamic>> getProductData(DocumentReference<Map<String, dynamic>> ref) async {
@@ -67,10 +69,7 @@ class OrderDetails extends StatelessWidget {
                     builder: (context, snap) {
                       if (snap.data == null) return Container();
                       return Row(
-                        children: [
-                          heading(snap.data!["name"]),
-                          Text("X ${product['quantity']}")
-                        ],
+                        children: [heading(snap.data!["name"]), Text("X ${product['quantity']}")],
                       );
                     },
                   );
@@ -86,7 +85,7 @@ class OrderDetails extends StatelessWidget {
                         icon: Icons.route,
                         title: "On Route",
                         onTap: () {
-                          controller.changeStatus("on route", order.id);
+                          controller.changeStatus("on route", order.id, delete);
                         },
                       ),
                       const SizedBox(width: 10),
@@ -94,7 +93,7 @@ class OrderDetails extends StatelessWidget {
                         icon: Icons.check_rounded,
                         title: "Delivered",
                         onTap: () {
-                          controller.changeStatus("delivered", order.id);
+                          controller.changeStatus("delivered", order.id, delete);
                         },
                       ),
                     ],

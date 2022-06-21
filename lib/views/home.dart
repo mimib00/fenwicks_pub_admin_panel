@@ -68,6 +68,15 @@ class HomeScreen extends StatelessWidget {
                             controller.updateIndex(index);
                           },
                         ),
+                        NavigationButton(
+                          index: 5,
+                          currentIndex: currentIndex,
+                          title: "New Orders",
+                          icon: Icons.shopping_cart_checkout_rounded,
+                          onTap: (index) {
+                            controller.updateIndex(index);
+                          },
+                        ),
                         const SizedBox(height: 50),
                         ListTile(
                           onTap: () async => await FirebaseAuth.instance.signOut(),

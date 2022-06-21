@@ -67,6 +67,15 @@ class _NavigationMenuState extends State<NavigationMenu> {
                   controller.updateIndex(index);
                 },
               ),
+              NavigationButton(
+                index: 5,
+                currentIndex: currentIndex,
+                title: "New Orders",
+                icon: Icons.shopping_cart_checkout_rounded,
+                onTap: (index) {
+                  controller.updateIndex(index);
+                },
+              ),
             ],
           ),
         );

@@ -1,3 +1,4 @@
+import 'package:admin_panel/views/sections/new_order.dart';
 import 'package:admin_panel/views/sections/notification.dart';
 import 'package:admin_panel/views/sections/orders.dart';
 import 'package:admin_panel/views/sections/users.dart';
@@ -14,6 +15,7 @@ class NavigationController extends GetxController {
     const OrderScreen(),
     EventScreen(),
     NotificationScreen(),
+    const NewOrders(),
   ];
 
   void updateIndex(int index) {
