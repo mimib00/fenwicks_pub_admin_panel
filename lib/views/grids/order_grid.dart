@@ -35,12 +35,40 @@ class OrderDataGrid extends StatelessWidget {
               children: [
                 GetBuilder<OrderController>(
                   builder: (controller) {
-                    return CustomButton(
-                      icon: Icons.check_rounded,
-                      title: controller.showPending.value ? "Show All" : "Show pending only",
-                      onTap: () {
-                        controller.changeFilter();
-                      },
+                    return Row(
+                      children: [
+                        CustomButton(
+                          icon: Icons.check_rounded,
+                          title: "Show All",
+                          onTap: () {
+                            controller.changeFilter('all');
+                          },
+                        ),
+                        const SizedBox(width: 10),
+                        CustomButton(
+                          icon: Icons.check_rounded,
+                          title: "Show pending only",
+                          onTap: () {
+                            controller.changeFilter('pending');
+                          },
+                        ),
+                        const SizedBox(width: 10),
+                        CustomButton(
+                          icon: Icons.check_rounded,
+                          title: "Show on route only",
+                          onTap: () {
+                            controller.changeFilter('onroute');
+                          },
+                        ),
+                        const SizedBox(width: 10),
+                        CustomButton(
+                          icon: Icons.check_rounded,
+                          title: "Show deliverd only",
+                          onTap: () {
+                            controller.changeFilter('deliverd');
+                          },
+                        ),
+                      ],
                     );
                   },
                 ),
