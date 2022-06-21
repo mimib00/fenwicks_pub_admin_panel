@@ -3,10 +3,12 @@ import 'package:admin_panel/views/login.dart';
 import 'package:admin_panel/views/widgets/error_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 
 class Auth extends GetxController {
   final CollectionReference<Map<String, dynamic>> _ref = FirebaseFirestore.instance.collection("admins");
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   /// Login the user and create a session.
   void login(String email, String password) async {
@@ -14,9 +16,7 @@ class Auth extends GetxController {
       final admin = await _ref.get();
       if (admin.docs.isEmpty) {
         final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-        _ref.doc(credential.user!.uid).set({
-          "email": credential.user!.email!
-        });
+        _ref.doc(credential.user!.uid).set({"email": credential.user!.email!});
       } else {
         await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
       }
@@ -55,6 +55,16 @@ class Auth extends GetxController {
     return isAdmin;
   }
 
+  Future<void> updateAdminToken(String email, String token) async {
+    try {
+      final snap = await _ref.where("email", isEqualTo: email).get();
+      final admin = snap.docs.first;
+      await _ref.doc(admin.id).set({"token": token}, SetOptions(merge: true));
+    } on FirebaseAuthException catch (e) {
+      Get.showSnackbar(errorCard(e.message!));
+    }
+  }
+
   /// Logout currently logged user.
   void logout() async {
     await FirebaseAuth.instance.signOut();
@@ -67,6 +77,8 @@ class Auth extends GetxController {
         final auth = Get.put(Auth());
         if (user != null) {
           if (await auth.checkUserIsAdmin(user)) {
+            final token = await messaging.getToken();
+            await updateAdminToken(user.email!, token!);
             Get.to(() => const HomeScreen());
           } else {
             auth.logout();

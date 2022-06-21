@@ -1,22 +1,19 @@
 import 'package:admin_panel/controllers/bindings.dart';
+import 'package:admin_panel/firebase_options.dart';
 import 'package:admin_panel/utils/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: "AIzaSyB6rOQS7jZhVWmf77moXzv2Lj9Y-si0T28",
-      appId: "1:968413471908:web:71502288e3cc8deea27231",
-      messagingSenderId: "968413471908",
-      projectId: "fenwicks-pub",
-      measurementId: "G-6HF95T836J",
-      storageBucket: "fenwicks-pub.appspot.com",
-      authDomain: "fenwicks-pub.firebaseapp.com",
-    ),
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(const MyApp());
 }
 
