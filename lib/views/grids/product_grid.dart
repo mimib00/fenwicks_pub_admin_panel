@@ -207,7 +207,8 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
                 children: [
                   Row(
                     children: [
-                      IconButton(onPressed: () => controller.animateTo(0), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+                      IconButton(
+                          onPressed: () => controller.animateTo(0), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
                       const Text(
                         "Add a new product",
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -247,7 +248,7 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
                         child: CustomTextField(
                           hintText: "Bounus Points(rewarded when user buy this product)",
                           label: "Bounus Points",
-                          controller: points,
+                          controller: bounus,
                           keyboardFormat: FilteringTextInputFormatter.digitsOnly,
                         ),
                       ),
@@ -293,7 +294,11 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
                     child: const Text("Submit"),
                     onPressed: () async {
                       final ProductController ctrl = Get.put(ProductController());
-                      if (name.text.isNotEmpty && qty.text.isNotEmpty && price.text.isNotEmpty && category.text.isNotEmpty && sku.text.isNotEmpty) {
+                      if (name.text.isNotEmpty &&
+                          qty.text.isNotEmpty &&
+                          price.text.isNotEmpty &&
+                          category.text.isNotEmpty &&
+                          sku.text.isNotEmpty) {
                         Map<String, dynamic> data = {
                           "name": name.text,
                           "description": description.text,
@@ -301,7 +306,7 @@ class _ProductDataGridState extends State<ProductDataGrid> with TickerProviderSt
                           "level": int.parse(level.text),
                           "servings": int.parse(servings.text),
                           "price": double.parse(price.text),
-                          "points": int.parse(price.text),
+                          "points": int.parse(points.text),
                           "bounus": int.parse(bounus.text),
                           "category": category.text,
                           "sku": int.parse(sku.text),

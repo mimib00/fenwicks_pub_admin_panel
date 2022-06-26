@@ -11,7 +11,6 @@ class Product {
   final String category;
   final int sku;
   final int quantity;
-  final String? photoUrl;
 
   Product(
     this.name,
@@ -25,7 +24,6 @@ class Product {
     this.category,
     this.sku,
     this.quantity, {
-    this.photoUrl,
     this.id,
   });
 
@@ -43,7 +41,6 @@ class Product {
       data["sku"],
       data["quantity"],
       id: id,
-      photoUrl: data["photo"],
     );
   }
 
@@ -55,9 +52,10 @@ class Product {
         "servings": servings,
         "price": price,
         "category": category,
+        "points": points,
+        "bounus": bounus,
         "sku": sku,
         "quantity": quantity,
-        "photo": photoUrl,
       };
 
   @override
