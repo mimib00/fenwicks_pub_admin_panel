@@ -53,12 +53,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB6rOQS7jZhVWmf77moXzv2Lj9Y-si0T28',
-    appId: '1:968413471908:web:71502288e3cc8deea27231',
-    messagingSenderId: '968413471908',
-    projectId: 'fenwicks-pub',
-    authDomain: 'fenwicks-pub.firebaseapp.com',
-    storageBucket: 'fenwicks-pub.appspot.com',
-    measurementId: 'G-6HF95T836J',
+    apiKey: 'AIzaSyAUE5Ed760RcY4t0SsB5OC6sgCUB1E-hjI',
+    appId: '1:449025692275:web:4d5575e6c465e173351006',
+    messagingSenderId: '449025692275',
+    projectId: 'fenwicks-pub-a46a5',
+    authDomain: 'fenwicks-pub-a46a5.firebaseapp.com',
+    storageBucket: 'fenwicks-pub-a46a5.appspot.com',
+    measurementId: 'G-MZREFN7GEB',
   );
 }
