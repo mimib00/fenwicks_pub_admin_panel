@@ -36,7 +36,7 @@ class UsersController extends GetxController {
       await _ref.doc(user.id).update({"points": user.points + points});
 
       await http.post(
-        Uri.parse("https://europe-west1-fenwicks-pub.cloudfunctions.net/sendNotification"),
+        Uri.parse("https://us-central1-fenwicks-pub-a46a5.cloudfunctions.net/sendNotification"),
         body: {"amount": points.toString(), "token": user.token},
       );
     } on FirebaseException catch (e) {

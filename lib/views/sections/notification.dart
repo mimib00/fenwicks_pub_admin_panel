@@ -44,7 +44,8 @@ class NotificationScreen extends StatelessWidget {
                     onTap: () async {
                       try {
                         // send http request
-                        final url = Uri.parse("https://europe-west1-fenwicks-pub.cloudfunctions.net/sendNotifications");
+                        final url =
+                            Uri.parse("https://us-central1-fenwicks-pub-a46a5.cloudfunctions.net/sendNotifications");
 
                         final res = await http.post(
                           url,
