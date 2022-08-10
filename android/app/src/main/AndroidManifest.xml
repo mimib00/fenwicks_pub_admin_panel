@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.admin_panel">
+    package="com.shaderbytes.fenwicksPubAdmin">
    <application
         android:label="admin_panel"
         android:name="${applicationName}"

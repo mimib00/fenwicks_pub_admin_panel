@@ -54,11 +54,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyAUE5Ed760RcY4t0SsB5OC6sgCUB1E-hjI',
-    appId: '1:449025692275:web:4d5575e6c465e173351006',
+    appId: '1:449025692275:web:c8ef581700278537351006',
     messagingSenderId: '449025692275',
     projectId: 'fenwicks-pub-a46a5',
     authDomain: 'fenwicks-pub-a46a5.firebaseapp.com',
     storageBucket: 'fenwicks-pub-a46a5.appspot.com',
-    measurementId: 'G-MZREFN7GEB',
+    measurementId: 'G-77JBN9C572',
   );
 }

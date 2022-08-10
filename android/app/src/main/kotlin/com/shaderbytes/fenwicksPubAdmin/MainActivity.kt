@@ -1,4 +1,4 @@
-package com.example.admin_panel
+package com.shaderbytes.fenwicksPubAdmin
 
 import io.flutter.embedding.android.FlutterActivity
 
