@@ -38,14 +38,9 @@ class OrderScreen extends StatelessWidget {
             stream: controller.getOrders(),
             builder: (context, snapshot) {
               if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
-                return FutureBuilder<List<Order>>(
-                  future: getOwner(snapshot.data!.docs),
-                  builder: (context, snap) {
-                    return OrderDataGrid(
-                      title: "All Events",
-                      orders: snap.data!,
-                    );
-                  },
+                return const OrderDataGrid(
+                  title: "All Events",
+                  orders: [],
                 );
               }
               return FutureBuilder<List<Order>>(

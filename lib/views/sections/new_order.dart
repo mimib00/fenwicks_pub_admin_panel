@@ -40,7 +40,8 @@ class NewOrders extends StatelessWidget {
                   if (snapshot.data == null) return Container();
 
                   final admin = snapshot.data!.data()!;
-                  final List<String> orders = admin['notifications'].cast<String>() ?? [];
+                  final List<String> orders =
+                      admin['notifications'] != null ? admin['notifications'].cast<String>() : [];
 
                   return ListView.builder(
                     itemCount: orders.length,
